@@ -21,7 +21,7 @@ const BlogPage = ({ data }) => {
 
 export const query = graphql`
   query {
-    allFile {
+    allMdx {
       nodes {
         name
       }
