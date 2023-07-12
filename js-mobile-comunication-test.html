@@ -14,14 +14,30 @@
 		Navbar content
 	</nav>
 	<script type="text/javascript">
-		function testcClick(){
-			setTimeout(function(){
-       			webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "getlocation", "callback": "get_position"}));
-        }, 500);
+		function get_data(data){
+			alert(data);
+		}
+
+		function testClick(type){
+			if(type === 1){
+				setTimeout(function(){
+       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "getlocation", "callback": "get_data"}));
+        		}, 500);
+			}
+			else if(type === 2){
+				setTimeout(function(){
+       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "getpushid", "callback": "get_data"}));
+        		}, 500);
+			}
+			else if(type === 3){
+				setTimeout(function(){
+       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "appversion", "callback": "app_data"}));
+        		}, 500);
+			}
 		}
 		</script>
 
-		<button onclick="testcClick()"></button>
+		<button onclick="testClick()">locationTest</button>
 </body>
 
 </html>
