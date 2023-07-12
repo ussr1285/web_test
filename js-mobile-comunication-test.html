@@ -31,7 +31,7 @@
 			}
 			else if(type === 3){
 				setTimeout(function(){
-       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "appversion", "callback": "app_data"}));
+       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "appversion", "callback": "get_data"}));
         		}, 500);
 			}
 		}
