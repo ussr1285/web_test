@@ -1,0 +1,64 @@
+<html>
+
+<head>
+    <title>테스트</title>
+</head>
+
+<body>
+    <script>
+        let version
+
+        const checkMobile = () => {
+            var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기
+
+            if (varUA.indexOf('android') > -1) {
+                //안드로이드
+                return "android";
+            } else if (varUA.indexOf("iphone") > -1 || varUA.indexOf("ipad") > -1 || varUA.indexOf("ipod") > -1) {
+                //IOS
+                return "ios";
+            } else {
+                //아이폰, 안드로이드 외
+                return "other";
+            }
+        }
+
+        const get_data = (data) => {
+            version = data;
+        }
+
+        const checkVersion = () => {
+            setTimeout(function () {
+                webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({ "action": "appversion", "callback": "get_data" }));
+            }, 500);
+        }
+
+        const updatePopup = (storeUrl) => {
+            let popupUpdateCheck = confirm("앱을 업데이트하세요.")
+            if (popupUpdateCheck)
+                location.href = storeUrl; //,'width=500,height=500,resizable=no'
+        }
+
+        const selectOsStore = (recentAppVersion) => {
+            const os = checkMobile();
+            checkVersion()
+
+            if (os === "android" && version !== recentAppVersion) { // 업데이트를 위해 플레이스토어로 이등
+                updatePopup("market://details?id=com.naver.labs.translator");
+            } else if (os === "ios" && version !== recentAppVersion) { // 업데이트를 위해 앱스토어로 이등
+                updatePopup("itms-apps://itunes.apple.com/app/1147874819"); // "itms-apps://itunes.apple.com/app/" + appId;
+            } else { // 버전 똑같음.
+                updatePopup("https://papago.naver.com/");
+            }
+        }
+
+
+    </script>
+    <button onclick='selectOsStore("2.0.4")'>What is os store</button>
+    <a href="https://play.google.com/store/apps/details?id=com.naver.labs.translator" target="_blank" class="appBtn">
+        <img src="/images/sub/google_btn.png" alt="구글플레이">
+    </a>
+</body>
+
+
+</html>

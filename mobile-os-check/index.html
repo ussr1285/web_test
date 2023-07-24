@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>테스트</title>
+</head>
+
+<body>
+    <script>
+        const checkMobile = () => {
+            var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기
+
+            if (varUA.indexOf('android') > -1) {
+                //안드로이드
+                return "android";
+            } else if (varUA.indexOf("iphone") > -1 || varUA.indexOf("ipad") > -1 || varUA.indexOf("ipod") > -1) {
+                //IOS
+                return "ios";
+            } else {
+                //아이폰, 안드로이드 외
+                return "other";
+            }
+        }
+
+        function get_data(data) {
+            alert(data);
+        }
+
+        function checkVersion() {
+            setTimeout(function () {
+                webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({ "action": "appversion", "callback": "get_data" }));
+            }, 500);
+        }
+
+        const selectOsStore = (recentAppVersion) => {
+            const os = JSON.stringify(checkMobile());
+            const version = JSON.stringify(checkVersion());
+
+            if (os === "android" && version != recentAppVersion) {
+                return "market://details?id=com.naver.labs.translator";
+            } else if (os === "ios" && version != recentAppVersion) {
+                return "itms-apps://itunes.apple.com/app/1147874819"; // "itms-apps://itunes.apple.com/app/" + appId;
+            } else {
+                return "https://papago.naver.com/";
+            }
+        }
+
+        const updatePopup = (storeUrl) => {
+        let popupUpdateCheck = confirm("앱을 업데이트하세요.")
+        if (popupUpdateCheck)
+            location.href = storeUrl; //,'width=500,height=500,resizable=no'
+    }
+
+    </script>
+    <button onclick='alert(selectOsStore("1.0.3"))'>What is os store</button>
+    <a href="https://play.google.com/store/apps/details?id=com.naver.labs.translator" target="_blank" class="appBtn">
+        <img src="/images/sub/google_btn.png" alt="구글플레이">
+    </a>
+</body>
+
+
+</html>
+
