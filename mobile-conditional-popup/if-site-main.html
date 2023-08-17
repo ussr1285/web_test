@@ -5,12 +5,14 @@
 </head>
 
 <body>
-    <script>
-        let version
 
+    <script> 
+        let version
+        // 앱 최신 버전으로 업데이트 하기 위한 팝업 관련 스크립트.
+        // (현재 sub07\sub02.php 등 임의 페이지에 넣으면 작동하지만, 이곳에 넣으면 작동이 안됩니다.)
         const checkMobile = () => {
             var varUA = navigator.userAgent.toLowerCase(); //userAgent 값 얻기
-
+    
             if (varUA.indexOf('android') > -1) {
                 //안드로이드
                 return "android";
@@ -22,27 +24,28 @@
                 return "other";
             }
         }
-
+    
         const get_data = (data) => {
             splitedVersion = data.split(".").map(Number);
             version = splitedVersion;
         }
-
+    
         const checkVersion = () => {
             setTimeout(function () {
-                webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({ "action": "appversion", "callback": "get_data" }));
-            }, 500);
+                webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({ "action": "appversion", "callback": "get_data" })); // 여기서 못 받아와서 오류 발생.
+            }, 5000);
         }
-
+    
         const updatePopup = (storeUrl) => {
             let popupUpdateCheck = confirm("앱을 업데이트하세요.")
             if (popupUpdateCheck)
                 location.href = storeUrl; //,'width=500,height=500,resizable=no'
         }
-
+    
         const selectOsStore = (rawRecentAppVersion, os, storeId) => {
             recentAppVersion = rawRecentAppVersion.split(".").map(Number);
             checkVersion()
+            
             setTimeout(function () {
                 if (
                     (version[0] < recentAppVersion[0]) ||
@@ -53,24 +56,19 @@
                         updatePopup("market://details?id="+storeId);
                     } else if (os === "ios") { // 업데이트를 위해 앱스토어로 이등
                         updatePopup("itms-apps://itunes.apple.com/app/"+storeId); // "itms-apps://itunes.apple.com/app/" + appId;
-                    } else {
-                        console.log("모바일 기기가 아닙니다.");
                     }
-                } else { // 버전 똑같음.
-                    alert("버전이 똑같아서 업데이트가 필요 없어요!")
                 }
-            }, 1000);
+            }, 6000);
         }
-    </script>
-
-    <script>
+    
+          // 메인. 이곳에서 업데이트 함수 호출. 
         const androidStoreId = "com.naver.labs.translator";
         const iosStoreId = "1147874819";
 
         try {
             const os = checkMobile();
             if(os === "android"){
-                selectOsStore("2.0.5", os, androidStoreId);
+                selectOsStore("1.8.5", os, androidStoreId);
             }
             else if(os === "ios"){
                 selectOsStore("1.0.3", os, iosStoreId);
@@ -79,8 +77,3 @@
             alert(e);
         }
     </script>
-
-    <div>당신의 버전은?</div>
-</body>
-
-</html>
