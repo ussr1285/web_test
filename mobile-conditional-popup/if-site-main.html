@@ -49,8 +49,8 @@
             setTimeout(function () {
                 if (
                     (version[0] < recentAppVersion[0]) ||
-                    (version[1] < recentAppVersion[1]) ||
-                    (version[2] < recentAppVersion[2])
+                    ((version[0] == recentAppVersion[0]) && version[1] < recentAppVersion[1]) ||
+                    ((version[0] == recentAppVersion[0]) && (version[1] == recentAppVersion[1]) && version[2] < recentAppVersion[2])
                 ) {
                     if (os === "android") { // 업데이트를 위해 플레이스토어로 이등
                         updatePopup("market://details?id="+storeId);
@@ -68,10 +68,10 @@
         try {
             const os = checkMobile();
             if(os === "android"){
-                selectOsStore("1.8.5", os, androidStoreId);
+                selectOsStore("9.9.9", os, androidStoreId);
             }
             else if(os === "ios"){
-                selectOsStore("1.0.3", os, iosStoreId);
+                selectOsStore("9.9.9", os, iosStoreId);
             }
         } catch (e) {
             alert(e);
