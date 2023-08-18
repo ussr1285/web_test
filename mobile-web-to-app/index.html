@@ -4,11 +4,19 @@
     </head>
     <body>
         <script>
+        
             const exeDeepLink = () => {
-                url = "ussr1285.github.io://path/";
-                location.href = url;
+                try{
+                    url = "ussr1285.github.io://";
+                    location.href = url;
+                    setTimeout(function() {
+                        location.href = "intent://#Intent; scheme=ussr1285.github.io; package=com.company.teststack; end;";
+                    }, 1000);
+                } catch(e) {
+                    alert(e);
+                }
             };
         </script>
-        
+        <button onclick='exeDeepLink()'>딥링크</button>
     </body>
 </html>
