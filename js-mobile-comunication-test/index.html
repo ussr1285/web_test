@@ -43,6 +43,11 @@
        				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "addpushsegment", "callback": "test_func"}));
         		}, 500);
 			}
+			else if(type === 5){
+				setTimeout(function(){
+       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "deletepushsegment", "callback": "test_func"}));
+        		}, 500);
+			}
 		}
 		</script>
 
@@ -50,6 +55,7 @@
 		<button onclick="testClick(2)">getpushid</button>
 		<button onclick="testClick(3)">appversion</button>
 		<button onclick="testClick(4)">pushsegment</button>
+		<button onclick="testClick(5)">deletepushsegment</button>
 </body>
 
 </html>
