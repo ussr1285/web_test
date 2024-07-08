@@ -18,6 +18,10 @@
 			alert(data);
 		}
 
+		function test_func(){
+			alert("done?");
+		}
+
 		function testClick(type){
 			if(type === 1){
 				setTimeout(function(){
@@ -34,12 +38,18 @@
        				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "appversion", "callback": "get_data"}));
         		}, 500);
 			}
+			else if(type === 4){
+				setTimeout(function(){
+       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "addpushsegment", "callback": "test_func"}));
+        		}, 500);
+			}
 		}
 		</script>
 
 		<button onclick="testClick(1)">getlocation</button>
 		<button onclick="testClick(2)">getpushid</button>
 		<button onclick="testClick(3)">appversion</button>
+		<button onclick="testClick(4)">pushsegment</button>
 </body>
 
 </html>
