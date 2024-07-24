@@ -48,6 +48,11 @@
        				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "deletepushsegment", "callback": "test_func"}));
         		}, 500);
 			}
+			else if(type === 6){
+				setTimeout(function(){
+       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "ismobile", "callback": "get_data"}));
+        		}, 500);
+			}
 		}
 		</script>
 
@@ -56,6 +61,7 @@
 		<button onclick="testClick(3)">appversion</button>
 		<button onclick="testClick(4)">pushsegment</button>
 		<button onclick="testClick(5)">deletepushsegment</button>
+		<button onclick="testClick(6)">deletepushsegment</button>
 </body>
 
 </html>
