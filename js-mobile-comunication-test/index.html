@@ -1,67 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bootstrap demo</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-</head>
+  <body>
+    <nav class="navbar" style="background-color: #e3f2fd">Navbar content</nav>
+    <script type="text/javascript">
+      function get_data(data) {
+        alert(data);
+      }
 
-<body>
-	<nav class="navbar" style="background-color: #e3f2fd;">
-		Navbar content
-	</nav>
-	<script type="text/javascript">
-		function get_data(data){
-			alert(data);
-		}
+      function test_func() {
+        alert("done?");
+      }
 
-		function test_func(){
-			alert("done?");
-		}
+      function testClick(type) {
+        if (type === 1) {
+          console.log("getlocation");
+          console.log(webkit);
+          console.log(webkit.messageHandlers.cordova_iab);
+          setTimeout(function () {
+            webkit.messageHandlers.cordova_iab.postMessage(
+              JSON.stringify({ action: "getlocation", callback: "get_data" })
+            );
+          }, 500);
+        } else if (type === 2) {
+          setTimeout(function () {
+            webkit.messageHandlers.cordova_iab.postMessage(
+              JSON.stringify({ action: "getpushid", callback: "get_data" })
+            );
+          }, 500);
+        } else if (type === 3) {
+          setTimeout(function () {
+            webkit.messageHandlers.cordova_iab.postMessage(
+              JSON.stringify({ action: "appversion", callback: "get_data" })
+            );
+          }, 500);
+        } else if (type === 4) {
+          setTimeout(function () {
+            webkit.messageHandlers.cordova_iab.postMessage(
+              JSON.stringify({
+                action: "addpushsegment",
+                callback: "test_func",
+              })
+            );
+          }, 500);
+        } else if (type === 5) {
+          setTimeout(function () {
+            webkit.messageHandlers.cordova_iab.postMessage(
+              JSON.stringify({
+                action: "deletepushsegment",
+                callback: "test_func",
+              })
+            );
+          }, 500);
+        } else if (type === 6) {
+          setTimeout(function () {
+            webkit.messageHandlers.cordova_iab.postMessage(
+              JSON.stringify({ action: "ismobile", callback: "get_data" })
+            );
+          }, 500);
+        }
+      }
+    </script>
 
-		function testClick(type){
-			if(type === 1){
-				setTimeout(function(){
-       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "getlocation", "callback": "get_data"}));
-        		}, 500);
-			}
-			else if(type === 2){
-				setTimeout(function(){
-       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "getpushid", "callback": "get_data"}));
-        		}, 500);
-			}
-			else if(type === 3){
-				setTimeout(function(){
-       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "appversion", "callback": "get_data"}));
-        		}, 500);
-			}
-			else if(type === 4){
-				setTimeout(function(){
-       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "addpushsegment", "callback": "test_func"}));
-        		}, 500);
-			}
-			else if(type === 5){
-				setTimeout(function(){
-       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "deletepushsegment", "callback": "test_func"}));
-        		}, 500);
-			}
-			else if(type === 6){
-				setTimeout(function(){
-       				webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify({"action": "ismobile", "callback": "get_data"}));
-        		}, 500);
-			}
-		}
-		</script>
-
-		<button onclick="testClick(1)">getlocation</button>
-		<button onclick="testClick(2)">getpushid</button>
-		<button onclick="testClick(3)">appversion</button>
-		<button onclick="testClick(4)">pushsegment</button>
-		<button onclick="testClick(5)">deletepushsegment</button>
-		<button onclick="testClick(6)">ismobile</button>
-</body>
-
+    <button onclick="testClick(1)">getlocation</button>
+    <button onclick="testClick(2)">getpushid</button>
+    <button onclick="testClick(3)">appversion</button>
+    <button onclick="testClick(4)">pushsegment</button>
+    <button onclick="testClick(5)">deletepushsegment</button>
+    <button onclick="testClick(6)">ismobile</button>
+  </body>
 </html>
